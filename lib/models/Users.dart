@@ -4,9 +4,13 @@
 
 import 'dart:convert';
 
-List<Welcome> welcomeFromJson(String str) => new List<Welcome>.from(json.decode(str).map((x) => Welcome.fromJson(x)));
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-String welcomeToJson(List<Welcome> data) => json.encode(new List<dynamic>.from(data.map((x) => x.toJson())));
+List<Welcome> welcomeFromJson(String str) =>
+    new List<Welcome>.from(json.decode(str).map((x) => Welcome.fromJson(x)));
+
+String welcomeToJson(List<Welcome> data) =>
+    json.encode(new List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Welcome {
   int id;
@@ -30,26 +34,26 @@ class Welcome {
   });
 
   factory Welcome.fromJson(Map<String, dynamic> json) => new Welcome(
-    id: json["id"],
-    name: json["name"],
-    username: json["username"],
-    email: json["email"],
-    address: Address.fromJson(json["address"]),
-    phone: json["phone"],
-    website: json["website"],
-    company: Company.fromJson(json["company"]),
-  );
+        id: json["id"],
+        name: json["name"],
+        username: json["username"],
+        email: json["email"],
+        address: Address.fromJson(json["address"]),
+        phone: json["phone"],
+        website: json["website"],
+        company: Company.fromJson(json["company"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "name": name,
-    "username": username,
-    "email": email,
-    "address": address.toJson(),
-    "phone": phone,
-    "website": website,
-    "company": company.toJson(),
-  };
+        "id": id,
+        "name": name,
+        "username": username,
+        "email": email,
+        "address": address.toJson(),
+        "phone": phone,
+        "website": website,
+        "company": company.toJson(),
+      };
 }
 
 class Address {
@@ -68,20 +72,20 @@ class Address {
   });
 
   factory Address.fromJson(Map<String, dynamic> json) => new Address(
-    street: json["street"],
-    suite: json["suite"],
-    city: json["city"],
-    zipcode: json["zipcode"],
-    geo: Geo.fromJson(json["geo"]),
-  );
+        street: json["street"],
+        suite: json["suite"],
+        city: json["city"],
+        zipcode: json["zipcode"],
+        geo: Geo.fromJson(json["geo"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "street": street,
-    "suite": suite,
-    "city": city,
-    "zipcode": zipcode,
-    "geo": geo.toJson(),
-  };
+        "street": street,
+        "suite": suite,
+        "city": city,
+        "zipcode": zipcode,
+        "geo": geo.toJson(),
+      };
 }
 
 class Geo {
@@ -93,15 +97,17 @@ class Geo {
     this.lng,
   });
 
+  Location() => new LatLng(double.parse(this.lat), double.parse(this.lng));
+
   factory Geo.fromJson(Map<String, dynamic> json) => new Geo(
-    lat: json["lat"],
-    lng: json["lng"],
-  );
+        lat: json["lat"],
+        lng: json["lng"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "lat": lat,
-    "lng": lng,
-  };
+        "lat": lat,
+        "lng": lng,
+      };
 }
 
 class Company {
@@ -116,14 +122,14 @@ class Company {
   });
 
   factory Company.fromJson(Map<String, dynamic> json) => new Company(
-    name: json["name"],
-    catchPhrase: json["catchPhrase"],
-    bs: json["bs"],
-  );
+        name: json["name"],
+        catchPhrase: json["catchPhrase"],
+        bs: json["bs"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "name": name,
-    "catchPhrase": catchPhrase,
-    "bs": bs,
-  };
+        "name": name,
+        "catchPhrase": catchPhrase,
+        "bs": bs,
+      };
 }

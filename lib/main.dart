@@ -1,10 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_json/pages.dart';
 
 import 'API.dart';
-import 'models/User.dart';
 import 'models/Users.dart';
 
 void main() => runApp(MyApp());
@@ -18,9 +15,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyListScreen(),
+      home: SplashScreen(),
       routes: <String, WidgetBuilder>{
-        '/a': (BuildContext context) => SecondPage()
+        '/HomeScreen': (BuildContext context) => new MyListScreen(),
+        '/a': (BuildContext context) => SecondPage(null)
       },
     );
   }
@@ -57,7 +55,7 @@ class _MyListScreenState extends State {
     API.getUsers().then((response) {
       setState(() {
         users = welcomeFromJson(response.body);
-       // users = list.map((model) => User.fromJson(model)).toList();
+        // users = list.map((model) => User.fromJson(model)).toList();
       });
     });
   }
@@ -122,12 +120,12 @@ class _MyListScreenState extends State {
 //                      setState(() {
 //                        users[index].name = "Mukesh";
 //                      });
-//                      Navigator.push(
-//                          context,
-//                          new MaterialPageRoute(
-//                              builder: (context) => new SecondPage()));
+                      Navigator.push(
+                          context,
+                          new MaterialPageRoute(
+                              builder: (context) => new SecondPage(users)));
 
-                      Navigator.pushNamed(context, '/a');
+                      //Navigator.pushNamed(context, '/a',arguments: users);
                     },
                     onLongPress: () {
                       //                            <-- onLongPress
