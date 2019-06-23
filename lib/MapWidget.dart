@@ -20,17 +20,17 @@ class _MyAppState extends State<MapsPage> {
 
   void _onMapCreated(GoogleMapController controller) {
     _controller.complete(controller);
-    //_center =ele
+    widget.users.forEach((element) => debugPrint(element.name));
 
-//    widget.users.forEach((element) => {
-//          markers.add(Marker(
-//              markerId: MarkerId(element.id.toString()),
-//              position: element.address.geo.Location(),
-//              infoWindow: new InfoWindow(
-//                title: element.name,
-//                snippet: element.address.city,
-//              )))
-//        });
+    widget.users.forEach((element) => {
+          markers.add(Marker(
+              markerId: MarkerId(element.id.toString()),
+              position: element.address.geo.Location(),
+              infoWindow: new InfoWindow(
+                title: element.name,
+                snippet: element.address.city,
+              )))
+        });
   }
 
   @override

@@ -95,7 +95,6 @@ class SecondPageState extends State<SecondPage> {
     // TODO: implement initState
     super.initState();
 
-    widget.users.forEach((element) => debugPrint(element.name));
 
     _children = [
       MapsPage(users: widget.users),
