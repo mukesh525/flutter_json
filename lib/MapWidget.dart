@@ -15,36 +15,44 @@ class MapsPage extends StatefulWidget {
 
 class _MyAppState extends State<MapsPage> {
   Completer<GoogleMapController> _controller = Completer();
+  GoogleMapController mapController;
   Set<Marker> markers = Set();
-  static const LatLng _center = const LatLng(45.521563, -122.677433);
+  LatLng _center = const LatLng(12.972442, 77.580643);
 
   void _onMapCreated(GoogleMapController controller) {
+    mapController = controller;
     _controller.complete(controller);
-    widget.users.forEach((element) => debugPrint(element.name));
+    setState(() {
+      widget.users.forEach((element) => {
+            debugPrint(element.name),
+            markers.add(Marker(
+                markerId: MarkerId(element.id.toString()),
+                position: element.address.geo.Location(),
+                infoWindow: new InfoWindow(
+                  title: element.name,
+                  snippet: element.address.city,
+                )))
+          });
+    });
 
-    widget.users.forEach((element) => {
-          markers.add(Marker(
-              markerId: MarkerId(element.id.toString()),
-              position: element.address.geo.Location(),
-              infoWindow: new InfoWindow(
-                title: element.name,
-                snippet: element.address.city,
-              )))
-        });
+    debugPrint("marker called $markers");
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Container(
         child: GoogleMap(
+          markers: markers,
           onMapCreated: _onMapCreated,
           initialCameraPosition: CameraPosition(
             target: _center,
             zoom: 11.0,
           ),
         ),
-      ),
+
+      )
     );
   }
 }
