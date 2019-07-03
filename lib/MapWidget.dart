@@ -22,11 +22,22 @@ class _MyAppState extends State<MapsPage> {
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
     _controller.complete(controller);
+
+    controller.animateCamera(
+      CameraUpdate.newLatLngBounds(
+        LatLngBounds(
+          southwest: LatLng(48.8589507, 2.2770205),
+          northeast: LatLng(50.8550625, 4.3053506),
+        ),
+        32.0,
+      ),
+    );
     setState(() {
       widget.users.forEach((element) => {
             debugPrint(element.name),
             markers.add(Marker(
                 markerId: MarkerId(element.id.toString()),
+                icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
                 position: element.address.geo.Location(),
                 infoWindow: new InfoWindow(
                   title: element.name,
@@ -34,8 +45,6 @@ class _MyAppState extends State<MapsPage> {
                 )))
           });
     });
-
-    debugPrint("marker called $markers");
   }
 
   @override
